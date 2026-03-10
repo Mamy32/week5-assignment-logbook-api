@@ -8,10 +8,14 @@ export default function Docs() {
     openapi: "3.0.0",
     info: {
       title: "Assignment Log Book API",
-      version: "1.0.0"
+      version: "1.0.0",
+      description: "REST API for managing assignments in a log book"
     },
+
     paths: {
+
       "/api/assignments": {
+
         get: {
           summary: "Get all assignments",
           responses: {
@@ -23,14 +27,10 @@ export default function Docs() {
                     {
                       id: 1,
                       title: "REST API Assignment",
-                      subject: "Web Development",
-                      status: "pending"
-                    },
-                    {
-                      id: 2,
-                      title: "Database Design",
-                      subject: "Database Systems",
-                      status: "completed"
+                      description: "Build REST API using Next.js",
+                      status: "Create",
+                      assignmentDate: "2026-03-10",
+                      dueDate: "2026-03-20"
                     }
                   ]
                 }
@@ -41,6 +41,7 @@ export default function Docs() {
 
         post: {
           summary: "Create a new assignment",
+
           requestBody: {
             required: true,
             content: {
@@ -49,30 +50,36 @@ export default function Docs() {
                   type: "object",
                   properties: {
                     title: { type: "string" },
-                    subject: { type: "string" }
+                    description: { type: "string" },
+                    dueDate: { type: "string" }
                   }
                 },
                 example: {
-                  title: "API Documentation",
-                  subject: "Web Development"
+                  title: "Backend Assignment",
+                  description: "Build REST API with Next.js",
+                  dueDate: "2026-03-30"
                 }
               }
             }
           },
+
           responses: {
             "200": {
-              description: "Assignment created"
+              description: "Assignment created successfully"
             },
             "400": {
               description: "Missing required fields"
             }
           }
         }
+
       },
 
       "/api/assignments/{id}": {
+
         get: {
           summary: "Get assignment by ID",
+
           parameters: [
             {
               name: "id",
@@ -83,6 +90,7 @@ export default function Docs() {
               }
             }
           ],
+
           responses: {
             "200": {
               description: "Assignment found"
@@ -95,6 +103,7 @@ export default function Docs() {
 
         put: {
           summary: "Update assignment",
+
           parameters: [
             {
               name: "id",
@@ -105,29 +114,24 @@ export default function Docs() {
               }
             }
           ],
+
           requestBody: {
             required: true,
             content: {
               "application/json": {
-                schema: {
-                  type: "object",
-                  properties: {
-                    title: { type: "string" },
-                    subject: { type: "string" },
-                    status: { type: "string" }
-                  }
-                },
                 example: {
                   title: "Updated Assignment",
-                  subject: "Web Development",
-                  status: "completed"
+                  description: "Update REST API project",
+                  status: "Submitted",
+                  dueDate: "2026-03-30"
                 }
               }
             }
           },
+
           responses: {
             "200": {
-              description: "Assignment updated"
+              description: "Assignment updated successfully"
             },
             "404": {
               description: "Assignment not found"
@@ -137,6 +141,7 @@ export default function Docs() {
 
         delete: {
           summary: "Delete assignment",
+
           parameters: [
             {
               name: "id",
@@ -147,16 +152,19 @@ export default function Docs() {
               }
             }
           ],
+
           responses: {
             "200": {
-              description: "Assignment deleted"
+              description: "Assignment deleted successfully"
             },
             "404": {
               description: "Assignment not found"
             }
           }
         }
+
       }
+
     }
   }
 
